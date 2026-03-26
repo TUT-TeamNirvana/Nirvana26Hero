@@ -407,13 +407,13 @@ static void RemoteControlSet()
             gimbal_cmd_send.yaw -= 0.005f * (float)rc_data[TEMP].rc.rocker_l_;
             gimbal_cmd_send.pitch += 0.001f * (float)rc_data[TEMP].rc.rocker_l1;
         }
-        if (gimbal_cmd_send.pitch > 50)
+        if (gimbal_cmd_send.pitch > PITCH_MAX_ANGLE)
         {
-            gimbal_cmd_send.pitch = 50;
+            gimbal_cmd_send.pitch = PITCH_MAX_ANGLE;
         }
-        if (gimbal_cmd_send.pitch < -20)
+        if (gimbal_cmd_send.pitch < PITCH_MIN_ANGLE)
         {
-            gimbal_cmd_send.pitch = -20;
+            gimbal_cmd_send.pitch = PITCH_MIN_ANGLE;
         }
         // 按照摇杆的输出大小进行角度增量,增益系数需调整
 
@@ -614,13 +614,13 @@ static void MouseKeySet()
 
 
         // ========== 防疯车安全限幅 ==========
-        if (gimbal_cmd_send.pitch > 50)
+        if (gimbal_cmd_send.pitch > PITCH_MAX_ANGLE)
         {
-            gimbal_cmd_send.pitch = 50;
+            gimbal_cmd_send.pitch = PITCH_MAX_ANGLE;
         }
-        if (gimbal_cmd_send.pitch < -20)
+        if (gimbal_cmd_send.pitch < PITCH_MIN_ANGLE)
         {
-            gimbal_cmd_send.pitch = -20;
+            gimbal_cmd_send.pitch = PITCH_MIN_ANGLE;
         }
 
     switch (rc_data[TEMP].key_count[KEY_PRESS][Key_R] % 2) // R键开关弹舱
@@ -743,14 +743,14 @@ static void EmergencyHandler()
         shoot_cmd_send.shoot_mode = SHOOT_OFF;
         shoot_cmd_send.friction_mode = FRICTION_OFF;
         shoot_cmd_send.load_mode = LOAD_STOP;
-        LOGERROR("[CMD] emergency stop!");
+        //LOGERROR("[CMD] emergency stop!");
     }
     // 遥控器右侧开关为[上],恢复正常运行
     if (rc_data[TEMP].lost_flag == 0)
     {
         robot_state = ROBOT_READY;
         shoot_cmd_send.shoot_mode = SHOOT_ON;
-                LOGINFO("[CMD] reinstate, robot ready");
+                //LOGINFO("[CMD] reinstate, robot ready");
     }
 }
 
@@ -805,7 +805,7 @@ void RobotCMDTask()
             shoot_cmd_send.lid_mode = LID_CLOSE;
         }
         if (vision_recv != NULL) {
-            LOGINFO("Vision Pitch: %f, Yaw: %f", vision_recv->input_data.shoot_pitch, vision_recv->input_data.shoot_yaw);
+            //LOGINFO("Vision Pitch: %f, Yaw: %f", vision_recv->input_data.shoot_pitch, vision_recv->input_data.shoot_yaw);
         }
     }
     EmergencyHandler(); // 处理模块离线和遥控器急停等紧急情况

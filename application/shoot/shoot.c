@@ -199,7 +199,9 @@ void ShootTask()
             if (shoot_cmd_recv.shoot_num >= 1)
             {
                 DJIMotorOuterLoop(loader, ANGLE_LOOP); // 切换到角度环
-                DJIMotorSetRef(loader, loader->measure.total_angle + (ONE_BULLET_DELTA_ANGLE *45)); // 控制量增加一发弹丸的角度
+                float delta_angle = (360.0f / NUM_PER_CIRCLE) * REDUCTION_RATIO_LOADER;
+                DJIMotorSetRef(loader, loader->measure.total_angle + delta_angle);
+                //DJIMotorSetRef(loader, loader->measure.total_angle + (ONE_BULLET_DELTA_ANGLE *45)); // 控制量增加一发弹丸的角度
                 shoot_feedback_data.shoot_num = shoot_cmd_recv.shoot_num - 1; // 反馈发射数量;
                 if (shoot_feedback_data.shoot_num == 0)
                 {

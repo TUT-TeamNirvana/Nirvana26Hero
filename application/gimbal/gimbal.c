@@ -38,21 +38,21 @@ void GimbalInit()
         .controller_param_init_config = {
             .angle_PID = {
                 .Kp = 8, // 8
-                .Ki = 4,
-                .Kd = 1,
-                .DeadBand = 0.1,
+                .Ki = 4, //4
+                .Kd = 1, //1
+                .DeadBand = 0.1, //0.1
                 .Improve = PID_Trapezoid_Intergral | PID_Integral_Limit | PID_Derivative_On_Measurement,
-                .IntegralLimit = 100,
+                .IntegralLimit = 100, //100
 
-                .MaxOut = 500,
+                .MaxOut = 500, //500
             },
             .speed_PID = {
                 .Kp = 50,  // 50
                 .Ki = 200, // 200
                 .Kd = 0,
                 .Improve = PID_Trapezoid_Intergral | PID_Integral_Limit | PID_Derivative_On_Measurement,
-                .IntegralLimit = 3000,
-                .MaxOut = 20000,
+                .IntegralLimit = 3000, //3000
+                .MaxOut = 20000, //20000
             },
             .other_angle_feedback_ptr = &gimba_IMU_data->YawTotalAngle,
             // 还需要增加角速度额外反馈指针,注意方向,ins_task.md中有c板的bodyframe坐标系说明
@@ -64,7 +64,7 @@ void GimbalInit()
             .speed_feedback_source = OTHER_FEED,
             .outer_loop_type = ANGLE_LOOP,
             .close_loop_type = ANGLE_LOOP | SPEED_LOOP,
-            .motor_reverse_flag = MOTOR_DIRECTION_NORMAL,
+            .motor_reverse_flag = MOTOR_DIRECTION_REVERSE,
             .feedforward_flag = SPEED_FEEDFORWARD,
         },
         .motor_type = GM6020};
@@ -76,21 +76,21 @@ void GimbalInit()
         },
         .controller_param_init_config = {
             .angle_PID = {
-                .Kp = 34, // 10
-                .Ki = 1.7,
+                .Kp = 0.5, // 10
+                .Ki = 0,  // 0.5
                 .Kd = 0,
-                .DeadBand = 0.2,
+                .DeadBand = 0.2, //0.2
                 .Improve = PID_Trapezoid_Intergral | PID_Integral_Limit | PID_Derivative_On_Measurement,
-                .IntegralLimit = 340,
-                .MaxOut = 1700,
+                .IntegralLimit = 100, //100
+                .MaxOut = 500, //500
             },
             .speed_PID = {
-                .Kp = 15,  // 50
-                .Ki = 110, // 350
+                .Kp = 2,  // 15
+                .Ki = 0, // 110
                 .Kd = 0,   // 0
                 .Improve = PID_Trapezoid_Intergral | PID_Integral_Limit | PID_Derivative_On_Measurement,
-                .IntegralLimit = 2500,
-                .MaxOut = 20000,
+                .IntegralLimit = 500, //2500
+                .MaxOut = 3000, //20000
             },
             .other_angle_feedback_ptr = &gimba_IMU_data->Pitch,
             // 还需要增加角速度额外反馈指针,注意方向,ins_task.md中有c板的bodyframe坐标系说明
@@ -98,13 +98,13 @@ void GimbalInit()
             //.current_feedforward_ptr = &pitch_gravity_feedforward,
         },
         .controller_setting_init_config = {
-            .angle_feedback_source = MOTOR_FEED,
+            .angle_feedback_source = OTHER_FEED,
             .speed_feedback_source = MOTOR_FEED,
             .outer_loop_type = ANGLE_LOOP,
             .close_loop_type = SPEED_LOOP | ANGLE_LOOP,
             .motor_reverse_flag = MOTOR_DIRECTION_REVERSE,
         },
-        .motor_type = GM6020,
+        .motor_type = M3508,
     };
 
     // 初始化视觉通信（UART 或 VCP模式）
@@ -156,7 +156,8 @@ void GimbalTask()
         DJIMotorChangeFeed(pitch_motor, SPEED_LOOP, MOTOR_FEED);
         DJIMotorSetRef(yaw_motor, gimbal_cmd_recv.yaw); // yaw和pitch会在robot_cmd中处理好多圈和单圈
         // PITCH 轴使用编码器位置环, 加入3.4的减速比, 且 30.0f 为水平时的编码器绝对角度
-        DJIMotorSetRef(pitch_motor, (-gimbal_cmd_recv.pitch * 3.4f) + 30.0f);
+        //DJIMotorSetRef(pitch_motor, (-gimbal_cmd_recv.pitch * 3.4f) + 30.0f);
+        DJIMotorSetRef(pitch_motor, gimbal_cmd_recv.pitch);
         break;
     // 云台自由模式,使用编码器反馈,底盘和云台分离,仅云台旋转,一般用于调整云台姿态(英雄吊射等)/能量机关
     case GIMBAL_FREE_MODE: // 后续删除,或加入云台追地盘的跟随模式(响应速度更快)
@@ -168,7 +169,8 @@ void GimbalTask()
         DJIMotorChangeFeed(pitch_motor, SPEED_LOOP, MOTOR_FEED);
         DJIMotorSetRef(yaw_motor, gimbal_cmd_recv.yaw); // yaw和pitch会在robot_cmd中处理好多圈和单圈
         // PITCH 轴使用编码器位置环, 加入3.4的减速比, 且 30.0f 为水平时的编码器绝对角度
-        DJIMotorSetRef(pitch_motor, (-gimbal_cmd_recv.pitch * 3.4f) + 30.0f);
+        //DJIMotorSetRef(pitch_motor, (-gimbal_cmd_recv.pitch * 3.4f) + 30.0f);
+        DJIMotorSetRef(pitch_motor, gimbal_cmd_recv.pitch);
         break;
     default:
         break;
@@ -218,8 +220,8 @@ void GimbalTask()
 
 
 
-    //LOGINFO("Pitch ECD: %f | IMU: %f", pitch_motor->measure.angle_single_round, gimba_IMU_data->Pitch);
-    //LOGINFO("Yaw ECD: %d", yaw_motor->measure.ecd);
+    LOGINFO("Pitch ECD: %f | IMU: %f", pitch_motor->measure.angle_single_round, gimba_IMU_data->Pitch);
+    LOGINFO("Yaw ECD: %d", yaw_motor->measure.ecd);
 
     // 推送消息
     PubPushMessage(gimbal_pub, (void *)&gimbal_feedback_data);
