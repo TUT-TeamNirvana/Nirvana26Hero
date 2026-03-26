@@ -77,7 +77,7 @@ CANInstance *CANRegister(CAN_Init_Config_s *config)
         if (can_instance[i]->rx_id == config->rx_id && can_instance[i]->can_handle == config->can_handle)
         {
             while (1)
-                LOGERROR("[}bsp_can] CAN id crash ,tx [%d] or rx [%d] already registered", &config->tx_id, &config->rx_id);
+                LOGERROR("[bsp_can] CAN id crash ,tx [%d] or rx [%d] already registered", config->tx_id, config->rx_id);
         }
     }
     

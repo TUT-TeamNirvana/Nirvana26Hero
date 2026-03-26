@@ -33,7 +33,7 @@ void GimbalInit()
     Motor_Init_Config_s yaw_config = {
         .can_init_config = {
             .can_handle = &hcan1,
-            .tx_id = 1,
+            .tx_id = 3,
         },
         .controller_param_init_config = {
             .angle_PID = {
@@ -71,8 +71,8 @@ void GimbalInit()
     // PITCH，参数x减速比3.4
     Motor_Init_Config_s pitch_config = {
         .can_init_config = {
-            .can_handle = &hcan2,
-            .tx_id = 1,
+            .can_handle = &hcan1,
+            .tx_id = 6,
         },
         .controller_param_init_config = {
             .angle_PID = {

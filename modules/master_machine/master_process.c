@@ -90,7 +90,7 @@ static uint8_t unpack_recv_frame(uint8_t *rx_buff, VisionRecvFrame_t *frame)
 {
     // 检查 SOF
     if (rx_buff[0] != VISION_SOF) {
-        LOGWARNING("[Vision] Invalid SOF: 0x%02X", rx_buff[0]);
+        //LOGWARNING("[Vision] Invalid SOF: 0x%02X", rx_buff[0]);
         return 2;
     }
 
@@ -99,7 +99,7 @@ static uint8_t unpack_recv_frame(uint8_t *rx_buff, VisionRecvFrame_t *frame)
 
     // 验证 CRC16 (整个帧，不包含帧尾)
     if (!verify_crc16_check_sum(rx_buff, sizeof(VisionRecvFrame_t))) {
-        LOGWARNING("[Vision] CRC16 verification failed");
+        //LOGWARNING("[Vision] CRC16 verification failed");
         return 1;
     }
 
@@ -119,7 +119,7 @@ static void VisionOfflineCallback(void *id)
     LOGWARNING("[Vision] offline, restart UART communication");
 #else
     // VCP 模式下重启 USB 通信
-    LOGWARNING("[Vision] offline, restart VCP communication");
+    //LOGWARNING("[Vision] offline, restart VCP communication");
 #endif
 }
 

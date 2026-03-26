@@ -242,16 +242,16 @@ static void RemoteControlSet()
                 float_to_parts(vision_control.target_data.y, &y_coord_int, &y_coord_frac);
                 float_to_parts(vision_control.target_data.z, &z_int, &z_frac);
 
-                LOGINFO("Vision State Debug:");
-                LOGINFO("  appear_state = %d", vision_control.vision_target_appear_state);
-
-                LOGINFO("  yaw   = %s%d.%03d deg", (yaw_deg < 0 ? "-" : ""), (y_int < 0 ? -y_int : y_int), y_frac);
-                LOGINFO("  pitch = %s%d.%03d deg", (pitch_deg < 0 ? "-" : ""), (p_int < 0 ? -p_int : p_int), p_frac);
-
-                LOGINFO("  target_xyz = %s%d.%03d / %s%d.%03d / %s%d.%03d",
-                        (vision_control.target_data.x < 0 ? "-" : ""), (x_int < 0 ? -x_int : x_int), x_frac,
-                        (vision_control.target_data.y < 0 ? "-" : ""), (y_coord_int < 0 ? -y_coord_int : y_coord_int), y_coord_frac,
-                        (vision_control.target_data.z < 0 ? "-" : ""), (z_int < 0 ? -z_int : z_int), z_frac);
+                // LOGINFO("Vision State Debug:");
+                // LOGINFO("  appear_state = %d", vision_control.vision_target_appear_state);
+                //
+                // LOGINFO("  yaw   = %s%d.%03d deg", (yaw_deg < 0 ? "-" : ""), (y_int < 0 ? -y_int : y_int), y_frac);
+                // LOGINFO("  pitch = %s%d.%03d deg", (pitch_deg < 0 ? "-" : ""), (p_int < 0 ? -p_int : p_int), p_frac);
+                //
+                // LOGINFO("  target_xyz = %s%d.%03d / %s%d.%03d / %s%d.%03d",
+                //         (vision_control.target_data.x < 0 ? "-" : ""), (x_int < 0 ? -x_int : x_int), x_frac,
+                //         (vision_control.target_data.y < 0 ? "-" : ""), (y_coord_int < 0 ? -y_coord_int : y_coord_int), y_coord_frac,
+                //         (vision_control.target_data.z < 0 ? "-" : ""), (z_int < 0 ? -z_int : z_int), z_frac);
             }
 
 //            vision_control.gimbal_vision_control.gimbal_pitch;//rad
