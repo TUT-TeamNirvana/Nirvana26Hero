@@ -447,15 +447,21 @@ static void RemoteControlSet()
         // 支持 VT3 的伪装左键(正转)和C键(反转)，优先判断
         if (rc_data[TEMP].mouse.press_l == 1)
         {
-            shoot_cmd_send.load_mode = LOAD_BURSTFIRE;
-            shoot_cmd_send.shoot_rate = shoot_frequency;
-            shoot_cmd_send.shoot_num = 0;
+            shoot_cmd_send.load_mode = LOAD_1_BULLET;
+            shoot_cmd_send.shoot_num = 1;
+            if (shoot_fetch_data.shoot_finish_flag == 1)
+            {
+                shoot_cmd_send.shoot_num = 0;
+            }
         }
         else if (rc_data[TEMP].key[KEY_PRESS].c == 1)
         {
             shoot_cmd_send.load_mode = LOAD_REVERSE;
-            shoot_cmd_send.shoot_rate = shoot_frequency;
-            shoot_cmd_send.shoot_num = 0;
+            shoot_cmd_send.shoot_num = 1;
+            if (shoot_fetch_data.shoot_finish_flag == 1)
+            {
+                shoot_cmd_send.shoot_num = 0;
+            }
         }
         else if (rc_data[TEMP].rc.dial > 100)
         {
@@ -468,9 +474,12 @@ static void RemoteControlSet()
         } 
         else if (rc_data[TEMP].rc.dial < -100)
         {
-            shoot_cmd_send.load_mode = LOAD_BURSTFIRE;
-            shoot_cmd_send.shoot_rate = shoot_frequency;
-            shoot_cmd_send.shoot_num = 0;
+            shoot_cmd_send.load_mode = LOAD_1_BULLET;
+            shoot_cmd_send.shoot_num = 1;
+            if (shoot_fetch_data.shoot_finish_flag == 1)
+            {
+                shoot_cmd_send.shoot_num = 0;
+            }
         }
         else if ((rc_data[TEMP].rc.dial == 0) && (shoot_cmd_send.load_mode != LOAD_VISION))
         {
@@ -726,28 +735,21 @@ static void MouseKeySet()
 
     default:
         shoot_cmd_send.load_mode = LOAD_REVERSE;
-        shoot_cmd_send.shoot_rate = shoot_frequency;
-        shoot_cmd_send.shoot_num = 0;
+        shoot_cmd_send.shoot_num = 1;
+        if (shoot_fetch_data.shoot_finish_flag == 1)
+        {
+            shoot_cmd_send.shoot_num = 0;
+        }
         break;
     }
     if (rc_data[TEMP].mouse.press_l == 1)
     {
-        switch (rc_data[TEMP].key_count[KEY_PRESS][Key_Z]%2) // z键设置发射模式
+        // 废弃 Z 键切换连发/单发，强制全部使用单发模式
+        shoot_cmd_send.load_mode = LOAD_1_BULLET;
+        shoot_cmd_send.shoot_num = 1;
+        if (shoot_fetch_data.shoot_finish_flag == 1)
         {
-        case 0:
-            shoot_cmd_send.load_mode = LOAD_BURSTFIRE;
-            shoot_cmd_send.shoot_rate = shoot_frequency;
             shoot_cmd_send.shoot_num = 0;
-            break;
-        
-        case 1:
-            shoot_cmd_send.load_mode = LOAD_1_BULLET;
-            shoot_cmd_send.shoot_num = 1;
-            if (shoot_fetch_data.shoot_finish_flag == 1)
-            {
-                shoot_cmd_send.shoot_num = 0;
-            }
-            break;
         }
     }
     

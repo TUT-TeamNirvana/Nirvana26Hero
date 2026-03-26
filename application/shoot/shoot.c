@@ -222,10 +222,16 @@ void ShootTask()
         // 拨盘反转,对速度闭环,后续增加卡弹检测(通过裁判系统剩余热量反馈和电机电流)
         // 也有可能需要从switch-case中独立出来
         case LOAD_REVERSE:
-            DJIMotorOuterLoop(loader, SPEED_LOOP);
-            DJIMotorSetRef(loader, -(shoot_cmd_recv.shoot_rate * 360 * REDUCTION_RATIO_LOADER / 8));
-            shoot_feedback_data.shoot_finish_flag = 0;
-
+            if (shoot_cmd_recv.shoot_num >= 1)
+            {
+                DJIMotorOuterLoop(loader, ANGLE_LOOP);
+                DJIMotorSetRef(loader, loader->measure.total_angle - (ONE_BULLET_DELTA_ANGLE *45));
+                shoot_feedback_data.shoot_num = shoot_cmd_recv.shoot_num - 1;
+                if (shoot_feedback_data.shoot_num == 0)
+                {
+                    shoot_feedback_data.shoot_finish_flag = 1;
+                }
+            }
             break;
         case LOAD_VISION:
             DJIMotorOuterLoop(loader, SPEED_LOOP);
