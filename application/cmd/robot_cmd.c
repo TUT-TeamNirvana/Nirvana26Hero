@@ -405,7 +405,7 @@ static void RemoteControlSet()
         // }
         if (use_manual_rocker == 1 && rc_data[TEMP].lost_flag == 0 && robot_state != ROBOT_STOP)
         {
-            gimbal_cmd_send.yaw -= 0.005f * (float)rc_data[TEMP].rc.rocker_l_;
+            gimbal_cmd_send.yaw += 0.005f * (float)rc_data[TEMP].rc.rocker_l_;
             gimbal_cmd_send.pitch += 0.001f * (float)rc_data[TEMP].rc.rocker_l1;
         }
         if (gimbal_cmd_send.pitch > PITCH_MAX_ANGLE)
@@ -624,7 +624,7 @@ static void MouseKeySet()
         // 统一退回到常规鼠标控制
         if (use_manual_mouse == 1)
         {
-            gimbal_cmd_send.yaw -= 0.01f * (float)rc_data[TEMP].mouse.x;
+            gimbal_cmd_send.yaw += 0.01f * (float)rc_data[TEMP].mouse.x;
             gimbal_cmd_send.pitch -= 0.01f * (float)rc_data[TEMP].mouse.y;
         }
     }
@@ -636,7 +636,7 @@ static void MouseKeySet()
             shoot_cmd_send.load_mode = LOAD_STOP;
         }
         // 常规鼠标控制
-        gimbal_cmd_send.yaw -= 0.01f * (float)rc_data[TEMP].mouse.x;
+        gimbal_cmd_send.yaw += 0.01f * (float)rc_data[TEMP].mouse.x;
         gimbal_cmd_send.pitch -= 0.01f * (float)rc_data[TEMP].mouse.y;
     }
 
