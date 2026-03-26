@@ -122,6 +122,9 @@ static void RCLostCallback(void *id)
     memset(rc_ctrl, 0, sizeof(rc_ctrl)); // 清空遥控器数据
     rc_ctrl[TEMP].lost_flag = 1;         // 遥控器离线标志位
     USARTServiceInit(rc_usart_instance); // 尝试重新启动接收
+    if (vtx_usart_instance != NULL) {
+        USARTServiceInit(vtx_usart_instance); // 尝试重新启动图传接收
+    }
     LOGWARNING("[rc] remote control lost");
 }
 

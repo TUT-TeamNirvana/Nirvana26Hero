@@ -222,7 +222,17 @@ void GimbalTask()
     // 用非指针方式打印波形，通道1是电机编码器(0-360)，通道2是IMU陀螺仪Pitch角度
     RTT_PrintWave_np(2, (double)pitch_motor->measure.angle_single_round, (double)gimba_IMU_data->Pitch);
 
-    LOGINFO("Pitch ECD: %f | IMU: %f", pitch_motor->measure.angle_single_round, gimba_IMU_data->Pitch);
+    float p_ecd = pitch_motor->measure.angle_single_round;
+    float p_imu = gimba_IMU_data->Pitch;
+    int32_t p_ecd_s = (int32_t)(p_ecd * 1000.0f + (p_ecd < 0 ? -0.5f : 0.5f));
+    int32_t p_ecd_int = p_ecd_s / 1000;
+    int32_t p_ecd_frac = (p_ecd_s < 0 ? -p_ecd_s : p_ecd_s) % 1000;
+    
+    int32_t p_imu_s = (int32_t)(p_imu * 1000.0f + (p_imu < 0 ? -0.5f : 0.5f));
+    int32_t p_imu_int = p_imu_s / 1000;
+    int32_t p_imu_frac = (p_imu_s < 0 ? -p_imu_s : p_imu_s) % 1000;
+
+    LOGINFO("Pitch ECD: %s%d.%03d | IMU: %s%d.%03d", (p_ecd < 0 ? "-" : ""), (p_ecd_int < 0 ? -p_ecd_int : p_ecd_int), p_ecd_frac, (p_imu < 0 ? "-" : ""), (p_imu_int < 0 ? -p_imu_int : p_imu_int), p_imu_frac);
     LOGINFO("Yaw ECD: %d", yaw_motor->measure.ecd);
 
     // 推送消息
