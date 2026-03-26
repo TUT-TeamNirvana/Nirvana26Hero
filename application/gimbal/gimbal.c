@@ -64,7 +64,7 @@ void GimbalInit()
             .speed_feedback_source = OTHER_FEED,
             .outer_loop_type = ANGLE_LOOP,
             .close_loop_type = ANGLE_LOOP | SPEED_LOOP,
-            .motor_reverse_flag = MOTOR_DIRECTION_REVERSE,
+            .motor_reverse_flag = MOTOR_DIRECTION_NORMAL,
             .feedforward_flag = SPEED_FEEDFORWARD,
         },
         .motor_type = GM6020};
@@ -99,10 +99,10 @@ void GimbalInit()
         },
         .controller_setting_init_config = {
             .angle_feedback_source = OTHER_FEED,
-            .speed_feedback_source = MOTOR_FEED,
+            .speed_feedback_source = OTHER_FEED,
             .outer_loop_type = ANGLE_LOOP,
             .close_loop_type = SPEED_LOOP | ANGLE_LOOP,
-            .motor_reverse_flag = MOTOR_DIRECTION_REVERSE,
+            .motor_reverse_flag = MOTOR_DIRECTION_NORMAL,
         },
         .motor_type = M3508,
     };
@@ -152,8 +152,8 @@ void GimbalTask()
         DJIMotorEnable(pitch_motor);
         DJIMotorChangeFeed(yaw_motor, ANGLE_LOOP, OTHER_FEED);
         DJIMotorChangeFeed(yaw_motor, SPEED_LOOP, OTHER_FEED);
-        DJIMotorChangeFeed(pitch_motor, ANGLE_LOOP, MOTOR_FEED); // 恢复为电机自身的多圈编码器反馈
-        DJIMotorChangeFeed(pitch_motor, SPEED_LOOP, MOTOR_FEED);
+        DJIMotorChangeFeed(pitch_motor, ANGLE_LOOP, OTHER_FEED);
+        DJIMotorChangeFeed(pitch_motor, SPEED_LOOP, OTHER_FEED);
         DJIMotorSetRef(yaw_motor, gimbal_cmd_recv.yaw); // yaw和pitch会在robot_cmd中处理好多圈和单圈
         // PITCH 轴使用编码器位置环, 加入3.4的减速比, 且 30.0f 为水平时的编码器绝对角度
         //DJIMotorSetRef(pitch_motor, (-gimbal_cmd_recv.pitch * 3.4f) + 30.0f);
@@ -165,8 +165,8 @@ void GimbalTask()
         DJIMotorEnable(pitch_motor);
         DJIMotorChangeFeed(yaw_motor, ANGLE_LOOP, OTHER_FEED);
         DJIMotorChangeFeed(yaw_motor, SPEED_LOOP, OTHER_FEED);
-        DJIMotorChangeFeed(pitch_motor, ANGLE_LOOP, MOTOR_FEED); // 恢复为电机自身的多圈编码器反馈
-        DJIMotorChangeFeed(pitch_motor, SPEED_LOOP, MOTOR_FEED);
+        DJIMotorChangeFeed(pitch_motor, ANGLE_LOOP, OTHER_FEED);
+        DJIMotorChangeFeed(pitch_motor, SPEED_LOOP, OTHER_FEED);
         DJIMotorSetRef(yaw_motor, gimbal_cmd_recv.yaw); // yaw和pitch会在robot_cmd中处理好多圈和单圈
         // PITCH 轴使用编码器位置环, 加入3.4的减速比, 且 30.0f 为水平时的编码器绝对角度
         //DJIMotorSetRef(pitch_motor, (-gimbal_cmd_recv.pitch * 3.4f) + 30.0f);
@@ -218,7 +218,9 @@ void GimbalTask()
 ////////////////////////////////////////////////
 
 
-
+    // 添加这行来打印 Pitch 轴的绝对编码器角度和 IMU 角度
+    // 用非指针方式打印波形，通道1是电机编码器(0-360)，通道2是IMU陀螺仪Pitch角度
+    RTT_PrintWave_np(2, (double)pitch_motor->measure.angle_single_round, (double)gimba_IMU_data->Pitch);
 
     LOGINFO("Pitch ECD: %f | IMU: %f", pitch_motor->measure.angle_single_round, gimba_IMU_data->Pitch);
     LOGINFO("Yaw ECD: %d", yaw_motor->measure.ecd);

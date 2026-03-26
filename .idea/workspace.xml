@@ -31,10 +31,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91b6e91d-48e2-495a-befe-db6457101e9b" name="Changes" comment="2026赛季英雄，初始化">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/robot_def.h" beforeDir="false" afterPath="$PROJECT_DIR$/application/robot_def.h" afterDir="false" />
-    </list>
+    <list default="true" id="91b6e91d-48e2-495a-befe-db6457101e9b" name="Changes" comment="2026赛季熊猫，把改完的视觉下位机解算移植过来" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,28 +45,20 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;dspajio&quot;
-  }
-}</component>
   <component name="GitRewordedCommitMessages">
     <option name="onto" value="258c04cbf450385ca980f1462cae47e0c418a3fa" />
   </component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/TUT-TeamNirvana/Nirvana26Hero.git&quot;,
-    &quot;accountId&quot;: &quot;f896ad78-e0bd-49f6-b9d2-6f4070da89be&quot;
-  }
-}</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://E:/RMthings/2026届Robomaster/2026赛季步兵/26赛季熊猫代码/basic_framework_LIF_white/application/cmd/robot_cmd.c" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/RMthings/2026届Robomaster/2026赛季步兵/26赛季熊猫代码/basic_framework_LIF_white/application/cmd/robot_cmd.c" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/application/robot.c" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/RMthings/2026届Robomaster/2026赛季步兵/26赛季代码/Nirvana26Hero/Nirvana26Hero/application/robot_def.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/bsp/can/bsp_can.c" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/bsp/can/bsp_can.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/RMthings/2026届Robomaster/2026赛季步兵/26赛季熊猫代码/basic_framework_LIF_white/modules/master_machine/master_process.c" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/modules/motor/DJImotor/dji_motor.c" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/modules/motor/servo_motor/servo_motor.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/RMthings/2026届Robomaster/2026赛季步兵/26赛季熊猫代码/basic_framework_LIF_white/modules/remote/remote_control.c" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/RMthings/2026届Robomaster/2026赛季步兵/26赛季熊猫代码/basic_framework_LIF_white/modules/remote/remote_control.c" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MakefileLocalSettings">
     <option name="projectSyncType">
@@ -108,7 +97,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/RMthings/2026届Robomaster/2026赛季步兵/26赛季熊猫代码/basic_framework_LIF&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -120,7 +109,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="OpenOCD 下载并运行.26英雄">
+  <component name="RunManager" selected="OpenOCD 下载并运行.26步兵熊猫">
     <configuration name="basic_framework.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="basic_framework" TARGET_NAME="basic_framework.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="basic_framework" RUN_TARGET_NAME="basic_framework.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -160,7 +149,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="26英雄" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="basic_framework" TARGET_NAME="basic_framework.elf" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="basic_framework" RUN_TARGET_NAME="basic_framework.elf">
+    <configuration name="26步兵熊猫" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="basic_framework" TARGET_NAME="basic_framework.elf" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="basic_framework" RUN_TARGET_NAME="basic_framework.elf">
       <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="E:\software\openocd-20250710\open ocd cfg\daplink_f4x.cfg" reset-type="INIT" download-type="UPDATED_ONLY">
         <debugger kind="GDB" isBundled="true" />
       </openocd>
@@ -267,7 +256,7 @@
     </configuration>
     <list>
       <item itemvalue="CMake 应用程序.basic_framework.elf" />
-      <item itemvalue="OpenOCD 下载并运行.26英雄" />
+      <item itemvalue="OpenOCD 下载并运行.26步兵熊猫" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -296,11 +285,12 @@
       <workItem from="1774373883972" duration="1000" />
       <workItem from="1774376382005" duration="22067000" />
       <workItem from="1774413968687" duration="14410000" />
-      <workItem from="1774438827999" duration="7364000" />
-      <workItem from="1774446500398" duration="8000" />
-      <workItem from="1774446655912" duration="1356000" />
-      <workItem from="1774448773363" duration="619000" />
-      <workItem from="1774497247811" duration="181000" />
+      <workItem from="1774438827999" duration="7125000" />
+      <workItem from="1774511581758" duration="28000" />
+      <workItem from="1774514092156" duration="12024000" />
+      <workItem from="1774528749042" duration="1647000" />
+      <workItem from="1774534568612" duration="386000" />
+      <workItem from="1774543812515" duration="2547000" />
     </task>
     <task id="LOCAL-00001" summary="2026赛季熊猫，工具链转为clion+cmake">
       <option name="closed" value="true" />
@@ -470,21 +460,21 @@
       <option name="project" value="LOCAL" />
       <updated>1774445550226</updated>
     </task>
-    <task id="LOCAL-00022" summary="2026赛季熊猫，自瞄添加成功，现添加雷达对接接口，修复键鼠操作时自瞄没有自动扳机bug，恢复调试打印日志">
+    <task id="LOCAL-00022" summary="2026赛季熊猫，添加vt3遥控控制拨弹盘和摩擦轮，并且不影响dt7和键鼠操作">
       <option name="closed" value="true" />
-      <created>1774446357049</created>
+      <created>1774528572547</created>
       <option name="number" value="00022" />
       <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1774446357049</updated>
+      <updated>1774528572547</updated>
     </task>
-    <task id="LOCAL-00023" summary="2026赛季英雄，初始化">
+    <task id="LOCAL-00023" summary="2026赛季熊猫，把改完的视觉下位机解算移植过来">
       <option name="closed" value="true" />
-      <created>1774446856261</created>
+      <created>1774544583005</created>
       <option name="number" value="00023" />
       <option name="presentableId" value="LOCAL-00023" />
       <option name="project" value="LOCAL" />
-      <updated>1774446856261</updated>
+      <updated>1774544583005</updated>
     </task>
     <option name="localTasksCounter" value="24" />
     <servers />
@@ -529,8 +519,8 @@
     <MESSAGE value="2026赛季熊猫，自瞄添加成功，现添加雷达对接接口" />
     <MESSAGE value="2026赛季熊猫，自瞄添加成功，现添加雷达对接接口，修复键鼠操作时自瞄逻辑bug" />
     <MESSAGE value="2026赛季熊猫，自瞄添加成功，现添加雷达对接接口，修复键鼠操作时自瞄没有自动扳机bug" />
-    <MESSAGE value="2026赛季熊猫，自瞄添加成功，现添加雷达对接接口，修复键鼠操作时自瞄没有自动扳机bug，恢复调试打印日志" />
-    <MESSAGE value="2026赛季英雄，初始化" />
-    <option name="LAST_COMMIT_MESSAGE" value="2026赛季英雄，初始化" />
+    <MESSAGE value="2026赛季熊猫，添加vt3遥控控制拨弹盘和摩擦轮，并且不影响dt7和键鼠操作" />
+    <MESSAGE value="2026赛季熊猫，把改完的视觉下位机解算移植过来" />
+    <option name="LAST_COMMIT_MESSAGE" value="2026赛季熊猫，把改完的视觉下位机解算移植过来" />
   </component>
 </project>
