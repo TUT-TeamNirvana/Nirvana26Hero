@@ -64,7 +64,7 @@ void GimbalInit()
             .speed_feedback_source = OTHER_FEED,
             .outer_loop_type = ANGLE_LOOP,
             .close_loop_type = ANGLE_LOOP | SPEED_LOOP,
-            .motor_reverse_flag = MOTOR_DIRECTION_NORMAL,
+            .motor_reverse_flag = MOTOR_DIRECTION_REVERSE,
             .feedforward_flag = SPEED_FEEDFORWARD,
         },
         .motor_type = GM6020};
